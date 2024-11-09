@@ -1,0 +1,28 @@
+Features:
+    - no. of bedrooms
+    - area
+    - the wealth of the neighborhood
+
+We have the dataset (AI Generated).
+
+The number of features is 3, so, we will have 3 neurons in the input layer.
+And we will have one hidden layer with 4 neurons, and one neuron in the output layer, which will output the predicted house price.
+
+Now, let's think about the logic:
+
+The Input Layer:
+3 Neurons (no computation)
+x1 = input feature 1
+x2 = input feature 2
+x3 = input feature 3
+
+each x[i] is a vector.
+
+
+The Hidden Layer:
+4 Neurons:
+
+the jth neuron:
+z[j] = w[1][j].X[1] + w[2][j].X[2] + w[3][j].X[3] + b[j]
+
+Z = W.T * X + B
