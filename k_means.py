@@ -5,13 +5,9 @@ import pandas as pd
 
 df = pd.read_csv('data/clustered_data.csv')
 
-X = df['x'].to_numpy()
-Y = df['y'].to_numpy()
-
+X, Y = df['x'].to_numpy(), df['y'].to_numpy()
 C = np.full(X.size, 1)
-
 clust_n = 5;
-
 cluster_x = np.random.randint(np.min(X), np.max(Y), size=clust_n)
 cluster_y = np.random.randint(np.min(X), np.max(Y), size=clust_n)
 
@@ -41,8 +37,7 @@ def get_mean(j, axis):
 for g in range(10000): # It should be: Repeat until convergence
     # get the closest cluster centroid. 
     for i in range(C.size): C[i] = get_closest_centroid(X[i], Y[i])
-    for j in range(clust_n):
-        cluster_x[j], cluster_y[j] = get_mean(j, 'x'), get_mean(j, 'y')
+    for j in range(clust_n): cluster_x[j], cluster_y[j] = get_mean(j, 'x'), get_mean(j, 'y')
 
 plt.figure(figsize=(8, 6))
 plt.scatter(X, Y, c='blue', alpha=0.6, edgecolors='k')
