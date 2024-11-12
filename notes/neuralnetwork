@@ -1,3 +1,26 @@
+A Neural Network consists of two components:
+    (1) Architecture
+        - How many layers, neurons, and the neurons are connected.
+    (2) Parameters (Weights)
+
+Neural Network Building Steps (Backpropagation):
+(1) Compute how many parameters in this network
+(2) Initialize The parameters with random values in the range [0, 0.1]
+
+-- Begin Training the network with gradient descent --
+
+(3) Update the parameters:
+    (3.1) Compute the loss:
+        L(Y_H, Y) = - ( (1-Y)log(1-Y_H) + Ylog(Y_H) )
+        we can add eps=1e-7 to avoid absolute zero
+    (3.2) W[l] = W[l] - alpha * dL/dW[l]
+          b[l] = b[l] - alpha * dL/db[l]
+
+          dL/dW[3] = (a[3]-y)*a[2].T
+          dl/dW[2] = W[3].T * g'(z[2])*(a[3]-y)*a[1].T
+
+
+
 Features:
     - no. of bedrooms
     - area
@@ -8,7 +31,7 @@ We have the dataset (AI Generated).
 The number of features is 3, so, we will have 3 neurons in the input layer.
 And we will have one hidden layer with 4 neurons, and one neuron in the output layer, which will output the predicted house price.
 
-Now, let's think about the logic:
+Now, let's think about the logic/steps:
 
 The Input Layer:
 3 Neurons (no computation)
