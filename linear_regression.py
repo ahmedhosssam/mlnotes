@@ -1,83 +1,54 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 
-'''
-Let's take notes
-First, we will try on a very simple data set, consists only from one attribute.
-I think we will try this:
-[[1, 2], [2, 4], [3, 6], [4, 8], [5, 10], [6, 11]]
-data = [
-    {'x': 1, 'y': 2},
-    {'x': 2, 'y': 4},
-    {'x': 4, 'y': 8},
-    {'x': 6, 'y': 12},
-    {'x': 7, 'y': 14},
-    {'x': 8, 'y': 16},
-    {'x': 10, 'y': 20},
-    {'x': 12, 'y': 24},
-]
+df = pd.read_csv("./data/house_prices_dataset.csv")
 
-Then, what we are trying to do is to find the equation --> y = w*x (we will add +b later) using linear regression
-'''
-w = 23 # weight (we will use to predict) NOTE: 23 is just random initialization, you can initilize it with anything.
+X = df["Bedrooms"].to_numpy()
+Y = df["Price"].to_numpy()
 
-def cost(w):
-    res = 0
-    for obj in data:
-        res += pow(obj['x']*w - obj['y'], 2)
-    return res
+def cost(w, b):
+    return np.sum(((X*w + b)-Y)**2)
 
-def predict(x, w):
-    return x*w
+def gradient(w, b):
+    # Derivative of the Cost function
+    # Partial sums
+    dw = np.sum(2 * X * (X*w + b - Y))
+    db = np.sum(2*(X*w + b - Y))
+    return dw, db
 
-data = [
-    {'x': 1, 'y': 3},
-    {'x': 2, 'y': 6},
-    {'x': 4, 'y': 12},
-    {'x': 5, 'y': 13},
-    {'x': 6, 'y': 18},
-    {'x': 7, 'y': 21},
-    {'x': 8, 'y': 24},
-    {'x': 9, 'y': 26},
-    {'x': 10, 'y': 30},
-    {'x': 12, 'y': 36},
-    {'x': 13, 'y': 35.8},
-]
+def predict(x, w, b):
+    return w*x + b
 
-def train(w):
-    '''
-    Train the model using Batch Gradient Descnet
-    '''
-    new_w = w
-    iterations = 10000
-    alpha = 0.0001
+def gradient_descent(init_w, init_b, learning_rate = 0.00001, eps = 1e-5):
+    cur_w = init_w
+    cur_b = init_b
 
-    for g in range(iterations):
-        sum = 0
-        for obj in data:
-            sum += obj['y'] - obj['x']*new_w
-        new_w = new_w + alpha * sum
-    
-    return new_w
+    prev_w = float('inf')
+    prev_b = float('inf')
 
-w = train(w)
+    while abs(cur_w-prev_w) > eps and abs(cur_b-prev_b) > eps:
+        prev_w = cur_w
+        prev_b = cur_b
 
-print("w = ", w)
-print("cost(w) = ", cost(w))
-print("predict 100: ", predict(100, w))
+        dw, db = gradient(cur_w, cur_b)
+        cur_w -= dw*learning_rate
+        cur_b -= db*learning_rate
+    return cur_w, cur_b
 
-X = [point['x'] for point in data]
-Y = [point['y'] for point in data]
+w, b = gradient_descent(6, 9);
 
-PREDICT_Y = [w*point['x'] for point in data]
+for i in range(len(X)):
+    print(predict(X[i], w, b), Y[i])
 
-plt.scatter(X, Y, color='blue')
-plt.plot(X, PREDICT_Y, label=f'y = {w} * x')
-plt.xlabel('x')
-plt.ylabel('y')
-plt.title('Plot of y = w * x')
+plt.figure(figsize=(8, 5))
+plt.scatter(X, Y, alpha=0.6, label="Data points")
+x_vals = np.linspace(X.min(), X.max(), 100)
+y_vals = predict(x_vals, w, b)
+plt.plot(x_vals, y_vals, color="red", linewidth=2, label="Gradient Descent Fit")  # Regression line
+plt.xlabel("Number of Bedrooms")
+plt.ylabel("House Price ($)")
+plt.title("House Prices vs. Number of Bedrooms (Gradient Descent)")
 plt.legend()
-
 plt.grid(True)
 plt.show()
-
