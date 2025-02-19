@@ -8,13 +8,13 @@ X = df["Bedrooms"].to_numpy()
 Y = df["Price"].to_numpy()
 
 def cost(w, b):
-    return np.sum(((X*w + b)-Y)**2)
+    return np.sum(((X*w + b)-Y)**2) / (2 * len(X))
 
 def gradient(w, b):
     # Derivative of the Cost function
     # Partial sums
-    dw = np.sum(2 * X * (X*w + b - Y))
-    db = np.sum(2*(X*w + b - Y))
+    dw = np.sum(X * (X*w + b - Y))
+    db = np.sum((X*w + b - Y))
     return dw, db
 
 def predict(x, w, b):
