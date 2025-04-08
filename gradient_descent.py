@@ -1,4 +1,5 @@
 import numpy as np
+import time
 from math import *
 '''
 Gradient descent is an optimization algorithm that iteratively updates parameters in the direction of the negative gradient to minimize a loss function.
@@ -25,14 +26,16 @@ def gradient(X):
 def gradient_descent(init_d, learning_rate = 0.0001):
     cur = np.copy(init_d)
     prev = np.full(len(init_d), np.inf)
-    eps = np.full(len(init_d), 1e-5)
 
     for i in range(1000):
         prev = np.copy(cur)
         grad = gradient(cur)
         cur = cur - grad*learning_rate
+        print(f(cur))
+        time.sleep(0.2)
     return cur
 
 arr = np.array([5, 5, 5, 5, 5])
-print(arr)
-print(gradient_descent(arr))
+gradient_descent(arr)
+#print(f(arr))
+#print(f(gradient_descent(arr)))

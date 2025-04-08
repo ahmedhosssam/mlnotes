@@ -41,14 +41,14 @@ w, b = gradient_descent(6, 9);
 for i in range(len(X)):
     print(predict(X[i], w, b), Y[i])
 
-plt.figure(figsize=(8, 5))
-plt.scatter(X, Y, alpha=0.6, label="Data points")
-x_vals = np.linspace(X.min(), X.max(), 100)
-y_vals = predict(x_vals, w, b)
-plt.plot(x_vals, y_vals, color="red", linewidth=2, label="Gradient Descent Fit")  # Regression line
-plt.xlabel("Number of Bedrooms")
-plt.ylabel("House Price ($)")
-plt.title("House Prices vs. Number of Bedrooms (Gradient Descent)")
-plt.legend()
-plt.grid(True)
-plt.show()
+#plt.figure(figsize=(8, 5))
+#plt.scatter(X, Y, alpha=0.6, label="Data points")
+#x_vals = np.linspace(X.min(), X.max(), 100)
+#y_vals = predict(x_vals, w, b)
+#plt.plot(x_vals, y_vals, color="red", linewidth=2, label="Gradient Descent Fit")  # Regression line
+#plt.xlabel("Number of Bedrooms")
+#plt.ylabel("House Price ($)")
+#plt.title("House Prices vs. Number of Bedrooms (Gradient Descent)")
+#plt.legend()
+#plt.grid(True)
+#plt.show()

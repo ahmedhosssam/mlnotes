@@ -1,0 +1,60 @@
+\documentclass[20pt]{article}
+\begin{document}
+\section{What is Regularization?}
+
+\begin{itemize}
+    \item \textbf{Regularization} is a set of techniques used to reduce the complexity of a machine learning model and prevent it from overfitting the training data.
+    \item Regularization adds a \textbf{penalty} to the model’s \textbf{loss function}, discouraging it from fitting the training data too perfectly.
+    \item Regularization works by adding a \textbf{regularization term} to the loss function (which the model tries to minimize).
+\end{itemize}
+
+\subsection{Example}
+This is the original loss function (for example):
+\begin{equation}
+    cost(W) = \frac{1}{2N} \sum_{i=1}^{N} \left( y(X^n, W) - t^n \right)^2
+\end{equation}
+
+After adding one of regularization types (ridge for example) it will be:
+\begin{equation}
+    cost(W) = \frac{1}{2N} \sum_{i=1}^{N} \left( y(X^i, W) - t^i \right)^2 + \mathbf{\sum_{i=1}^{M} \left (\frac{\lambda}{2} W_i^2 \right)}
+\end{equation}
+The new term is the \textbf{Regularization Term}.
+
+Given one of the weights $W_j$, the partial derivative will be:
+
+\begin{equation}
+    \frac{\partial cost(W)}{\partial W_j} = \frac{1}{N} \sum_{i=1}^{N} \left( y(X^i, W) - t^n \right)^2 * X_j^i + \lambda W_j
+\end{equation}
+
+
+\section{Ridge Regression}
+
+\begin{itemize}
+    \item We also call it L2 Reguralization.
+
+    \item Adds the squared magnitude of all weights to the loss function:
+    \begin{equation}
+        \mathbf{Penalty} = \sum_{i=1}^{M} w_j^2
+    \end{equation}
+
+    \item It encourages \textbf{smaller weights}.
+
+    \item It keeps all features, but shrinks their influence.
+    \item \textbf{Notice} that we started with \textbf{i=1}, which means we don't penalize the intercept at $W_0$.
+\end{itemize}
+
+\section{Ridge Regression}
+
+\begin{itemize}
+    \item Adds the \textbf{absolute value} of weights to the loss function:
+    \begin{equation}
+        \mathbf{Penalty} = \sum_{j}^{M} \left| w_j \right|
+    \end{equation}
+
+    \item Encourages \textbf{sparsity} — sets some weights to zero.
+
+    \item Can be used for \textbf{feature selection}.
+
+\end{itemize}
+
+\end{document}
