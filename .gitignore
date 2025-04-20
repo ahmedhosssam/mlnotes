@@ -1,5 +1,5 @@
 *.png
-*.4ct
+*.4tc
 *.aux
 *.dvi
 *.idv
@@ -9,4 +9,4 @@
 *.xref
 *.html
 *.HTML
-
+*.css
